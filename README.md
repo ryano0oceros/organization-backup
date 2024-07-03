@@ -25,6 +25,12 @@ For linux, install git, curl, jq
 sudo apt-get install git curl jq
 ```
 
+Set github token as an environment variable
+
+```bash
+export GITHUB_TOKEN=<your-token>
+```
+
 ## Clone the repository
 
 ```bash
@@ -41,22 +47,26 @@ Save your GitHub token in an environment variable
 export GITHUB_TOKEN=<your-token>
 ```
 
-
 ## run migrate.sh
 
 ```bash
+chmod +x migrate.sh
 ./migrate.sh <org-name> $GITHUB_TOKEN
 ```
 
+## Optional: Validate contents
 
-## Optional: Validate contents of migration_archive.tar.gz
+Unzip contents, and verify files
 
-unzip contents
+## Downstream
 
 ```bash
-cd
+cd <org-name>
+cd pack
+git verify-pack -v <file-name>.pack
+```
 
-## Upload to Azure
+## Upload to Azure (incomplete)
 
 ```bash
 az storage blob upload \

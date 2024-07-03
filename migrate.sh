@@ -49,8 +49,8 @@ curl -H "Authorization: Bearer $GITHUB_TOKEN" \
   -H "Accept: application/vnd.github+json" \
   https://api.github.com/orgs/$ORG_NAME/migrations/$migration_id
 
-# Step 8: Clone each repository, fetch all branches, pull updates, and create a zip file
-echo "Cloning each repository, fetching all branches, pulling updates, and creating a zip file..."
+# Step 8: Clone each repository, fetch all branches and tags, pull updates, and create a zip file
+echo "Cloning each repository, fetching all branches and tags, pulling updates, and creating a zip file..."
 mkdir -p "$ORG_NAME-repos"
 for repo in $(jq -r '.repositories[]' repositories.json); do
   repo_name=$(basename $repo)
@@ -59,7 +59,9 @@ for repo in $(jq -r '.repositories[]' repositories.json); do
     echo "Cloned repository: $repo_name"
     cd "$ORG_NAME-repos/$repo_name"
     git fetch --all
-    git pull
+    git pull --all
+    echo "Branches in $repo_name:"
+    git branch -r
     cd ../..
   else
     echo "Failed to clone repository: $repo_name"
@@ -72,7 +74,7 @@ zip -r "${ORG_NAME}.zip" "$ORG_NAME-repos"
 echo "Created zip file: ${ORG_NAME}.zip"
 
 # Step 10: Clean up
-rm -rf "$ORG_NAME-repos"
+# rm -rf "$ORG_NAME-repos"
 
 # Step 11: Wait for the download to complete
 echo "Waiting for the downloads to complete..."
