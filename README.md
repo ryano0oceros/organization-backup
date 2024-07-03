@@ -12,7 +12,6 @@ Create a [GitHub PAT](https://docs.github.com/en/authentication/keeping-your-acc
 - Generate new token
 - Select the following permissions:
     - admin:org
-    - admin:enterprise
     - repo
 - Save the token in a secure location
 
