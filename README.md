@@ -24,12 +24,6 @@ For linux, install git, curl, jq
 sudo apt-get install git curl jq
 ```
 
-Set github token as an environment variable
-
-```bash
-export GITHUB_TOKEN=<your-token>
-```
-
 ## Clone the repository
 
 ```bash
